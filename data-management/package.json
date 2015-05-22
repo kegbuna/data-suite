@@ -1,0 +1,15 @@
+{
+  "name": "data-management",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node load-config.js"
+  },
+  "dependencies": {
+    "convict": "^0.7.0",
+    "debug": "~2.1.1",
+    "later": "^1.1.6",
+    "mongodb": "^2.0.31",
+    "monk": "^1.0.1"
+  }
+}

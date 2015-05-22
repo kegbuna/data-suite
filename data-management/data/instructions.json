@@ -1,0 +1,41 @@
+{
+  "extractors": {
+    "walmart product queries": {
+      "subject": "walmart product queries",
+      "apiHost": "api.walmartlabs.com",
+      "apiPath": "/v1/",
+      "endPoint": "items",
+      "port": 443
+    }
+  },
+  "extractions": {
+    "test items" : {
+      "params" : {
+        "ids": [41734260,37871426],
+        "format" : "json",
+        "apiKey" : "jmdtdydcfy8us4ghmuk2cc72"
+      }
+    }
+  },
+  "loaders" : {
+    "localmongo": {
+      "address" : "localhost:27000/research"
+    }
+  },
+  "loads" : {
+    "walmart product queries" : {
+      "table" : "walmart product queries"
+    }
+  },
+  "instructions" : {
+    "get walmart products" : {
+      "extractor" : "walmart product queries",
+      "extraction" : "test items",
+      "loader" : "localmongo",
+      "load" : "walmart product queries",
+      "schedule" : "every 10 seconds",
+      "limit" : "1000",
+      "status" : "enabled"
+    }
+  }
+}

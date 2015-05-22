@@ -1,9 +1,9 @@
 data-extractor-loader/instructions.json
 *.iml
-
-
 data-admin/node_modules
-data-extractor-loader/data-extractor-loader.iml
 data-extractor-loader/node_modules
 data-admin/bower_components
 .idea
+data-admin/.tmp
+data-admin/report
+data-management/node_modules

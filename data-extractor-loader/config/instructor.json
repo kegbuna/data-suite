@@ -1,0 +1,4 @@
+{
+  "server" : "localhost:27000",
+  "database" : "config"
+}
