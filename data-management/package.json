@@ -7,9 +7,13 @@
   },
   "dependencies": {
     "convict": "^0.7.0",
+    "csvtojson": "^0.3.21",
     "debug": "~2.1.1",
     "later": "^1.1.6",
     "mongodb": "^2.0.31",
     "monk": "^1.0.1"
+  },
+  "devDependencies": {
+    "csvtojson": "^0.3.21"
   }
 }
