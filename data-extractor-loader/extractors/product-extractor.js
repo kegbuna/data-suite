@@ -10,11 +10,11 @@ var extractor = function (instruction)
 {
     //Some defaults
     var config = {};
-    config.apiKey = "";
-    config.apiHost = "";
-    config.apiPath = "";
-    config.endPoint = "";
-    config.port = "";
+    config.apiKey = "jmdtdydcfy8us4ghmuk2cc72";
+    config.apiHost = "api.walmartlabs.com";
+    config.apiPath = "/v1";
+    config.endPoint = "/items";
+    config.port = "443";
 
     if (instruction)
     {
@@ -26,7 +26,8 @@ var extractor = function (instruction)
     // Retrieve data using a predefined query string
     this.getData = function (extraction, callback)
     {
-        var client = this.port == 443 ? https : http;
+        //var client = this.port == 443 ? https : http;
+        var client = https;
         var queryString = "";
         
         var params = extraction.params;
@@ -61,6 +62,7 @@ var extractor = function (instruction)
             }
 
             queryString += paramString;
+            queryString += "&apiKey=" + config.apiKey;
         }
 
         //create options object
@@ -72,6 +74,11 @@ var extractor = function (instruction)
         console.log("Url being queried: ", config.apiHost + config.apiPath + config.endPoint + queryString);
 
         var req = client.request(options, callback);
+
+        req.on('error', function (err)
+        {
+            throw err;
+        });
 
         req.end();
 

@@ -12,6 +12,7 @@ var loader = function (instruction)
     var config = {};
     config.history = 'https://flickering-heat-9411.firebaseio.com/history';
     config.product = 'https://flickering-heat-9411.firebaseio.com/products';
+
     if (instruction)
     {
         for (var name in instruction)
@@ -31,10 +32,11 @@ var loader = function (instruction)
         {
             currentProduct = productArray[i];
             
-            myHistoryRef = new Firebase(config.history + '/' + currentProduct.id + '/' + timeStamp);
+            myHistoryRef = new Firebase(config.history + '/' + currentProduct.itemId + '/' + timeStamp);
+
             myHistoryRef.set(currentProduct);
             
-            myProductRef = new Firebase(config.product + '/' + currentProduct.id);
+            myProductRef = new Firebase(config.product + '/' + currentProduct.itemId);
             
             myProductRef.set(currentProduct);
         }
