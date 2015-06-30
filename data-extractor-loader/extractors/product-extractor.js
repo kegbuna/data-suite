@@ -9,28 +9,26 @@ var https = require("https");
 var extractor = function (instruction)
 {
     //Some defaults
-    this.apiKey = "";
-    this.apiHost = "";
-    this.apiPath = "";
-    this.endPoint = "";
-    this.port = "";
+    var config = {};
+    config.apiKey = "";
+    config.apiHost = "";
+    config.apiPath = "";
+    config.endPoint = "";
+    config.port = "";
 
     if (instruction)
     {
         for (var name in instruction)
         {
-            this[name] = instruction[name];
+            config[name] = instruction[name];
         }
-    }
-    else
-    {
-        throw "Need instructions, boss.";
     }
     // Retrieve data using a predefined query string
     this.getData = function (extraction, callback)
     {
         var client = this.port == 443 ? https : http;
         var queryString = "";
+        
         var params = extraction.params;
 
 
@@ -67,11 +65,11 @@ var extractor = function (instruction)
 
         //create options object
         var options = {
-            hostname: this.apiHost,
-            path: this.apiPath + this.endPoint + queryString
+            hostname: config.apiHost,
+            path: config.apiPath + config.endPoint + queryString
         };
 
-        console.log("Url being queried: ", this.apiHost + this.apiPath + this.endPoint + queryString);
+        console.log("Url being queried: ", config.apiHost + config.apiPath + config.endPoint + queryString);
 
         var req = client.request(options, callback);
 

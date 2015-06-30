@@ -4,6 +4,7 @@ var db = require('monk')(load_config.server + '/' + load_config.database);
 
 var instruction_set = require(load_config.file);
 
+/*
 for (var instruction_type in instruction_set)
 {
     var current_table = db.get(instruction_type);
@@ -27,16 +28,24 @@ for (var instruction_type in instruction_set)
             payload[item] = set_object[item];
         }
 
-        current_table.insert(payload).on('complete', function(err, doc)
-        {
-            if (err)
-            {
-                console.log('ERROR: ', err);
-            }
-            else
-            {
-                console.log('loaded: ', doc);
-            }
-        });
+        current_table.insert(payload).on('complete', onInsert);
+    }
+}
+*/
+
+var csv = require('./data/WM Product IDS - Sheet2.csv');
+var csvConvert = require('csvtojson');
+
+csvConvert.
+
+function onInsert(err, doc)
+{
+    if (err)
+    {
+        console.log('ERROR: ', err);
+    }
+    else
+    {
+        console.log('loaded: ', doc);
     }
 }

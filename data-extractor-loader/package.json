@@ -8,6 +8,7 @@
   "dependencies": {
     "convict": "^0.7.0",
     "debug": "~2.1.1",
+    "firebase": "^2.2.7",
     "later": "^1.1.6",
     "mongodb": "^2.0.31",
     "monk": "^1.0.1"
