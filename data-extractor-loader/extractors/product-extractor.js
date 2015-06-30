@@ -77,7 +77,7 @@ var extractor = function (instruction)
 
         req.on('error', function (err)
         {
-            throw err;
+            console.log("Got an error: ", err);
         });
 
         req.end();

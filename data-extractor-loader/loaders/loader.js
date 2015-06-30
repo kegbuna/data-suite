@@ -40,6 +40,8 @@ var loader = function (instruction)
             
             myProductRef.set(currentProduct);
         }
+
+        console.log(productArray.length + " products updated/pushed.");
         
     }
 };

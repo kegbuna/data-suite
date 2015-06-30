@@ -44,12 +44,22 @@ var instructor = function()
 
                     res.on('end', function()
                     {
-                        //turn into an object we can use
-                        records = JSON.parse(records);
+                        console.log("Got our records");
+                        console.log("The time is:", Date.now());
+                        try
+                        {
+                            //turn into an object we can use
+                            records = JSON.parse(records);
 
-                        var itemArray = records.items;
+                            var itemArray = records.items;
 
-                        loader.put(itemArray);
+                            loader.put(itemArray);
+                        }
+                        catch (e)
+                        {
+                            console.log('Something threw something: ', e);
+                        }
+
                     });
                 });
             }
@@ -59,7 +69,7 @@ var instructor = function()
 	 
 	 this.start = function()
 	 {
-		 var sched = later.parse.text('every 5 minutes');
+		 var sched = later.parse.text('every 30 minutes');
 
          this.perform();
 		 var timer = later.setInterval(this.perform, sched);
