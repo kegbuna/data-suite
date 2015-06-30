@@ -1,0 +1,15 @@
+{
+  "name": "data-listener",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ken egbuna",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^2.2.7",
+    "twilio": "^2.2.1"
+  }
+}
