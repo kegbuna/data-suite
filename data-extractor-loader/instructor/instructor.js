@@ -9,6 +9,7 @@ var EventEmitter = require('events').EventEmitter;
 var instructor_config = require('../config/instructor.json');
 var Firebase = require('firebase');
 var fs = require('fs');
+var sleeper = require('sleep');
 
 var instructor = function()
 {
@@ -28,7 +29,7 @@ var instructor = function()
 		 {
             var ids = Object.keys(snapshot.val());
             //console.log("items are:", ids);
-            while (ids.length > 0)
+            while (ids.length > 80)
             {
                 extraction.params = {
                     ids: ids.splice(0, 20).join()
@@ -62,6 +63,7 @@ var instructor = function()
 
                     });
                 });
+                sleeper.sleep(1);
             }
 		 });
 		 

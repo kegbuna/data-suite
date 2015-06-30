@@ -19,7 +19,8 @@ function startListening()
         var changedProduct = snapshot.val();
         
         console.log("new value: ", changedProduct.itemId);
-        for (var j in target_numbers)
+        
+        /*for (var j in target_numbers)
         {
             console.log("Notifying: ", target_numbers[j]);
             
@@ -39,7 +40,7 @@ function startListening()
                     console.log(responseData);
                 }
             });    
-        }
+        }*/
         
     });
 }

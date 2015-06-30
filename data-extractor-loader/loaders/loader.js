@@ -4,7 +4,7 @@
  */
 
 var Firebase = require('firebase');
-
+var fs = require('fs');
 
 var loader = function (instruction)
 {
@@ -27,23 +27,74 @@ var loader = function (instruction)
         var myHistoryRef,
             myProductRef,
             currentProduct;
+        
+        var productsSaved = 0;
             
         for (var i=0; i<productArray.length; i++)
         {
             currentProduct = productArray[i];
             
-            myHistoryRef = new Firebase(config.history + '/' + currentProduct.itemId + '/' + timeStamp);
-
-            myHistoryRef.set(currentProduct);
-            
             myProductRef = new Firebase(config.product + '/' + currentProduct.itemId);
-            
-            myProductRef.set(currentProduct);
+            checkProduct(myProductRef, currentProduct);
         }
-
-        console.log(productArray.length + " products updated/pushed.");
         
-    }
+        function checkProduct(fireRef, product)
+        {
+            fireRef.on('value', function (snapshot)
+            {
+                //console.log("Snapshot exists? ", snapshot.exists());
+                //console.log("Snapshot value? ", snapshot.val());
+                //console.log('Current product value? ', product);
+                
+                if (!productsEqual(snapshot.val(), product))
+                {
+                    myProductRef.set(product);
+                    myHistoryRef = new Firebase(config.history + '/' + product.itemId + '/' + timeStamp);
+                    myHistoryRef.set(product);
+                    
+                    console.log(product.name + ' was changed or didnt exist yet so we are going to save it to the DB.');
+                    productsSaved++;
+                    console.log(productsSaved + " products updated/pushed on this run.");            
+                }
+                else
+                {
+                    console.log("Nothing to do here folks.");
+                }    
+            });
+        }
+        
+        function productsEqual(obj, receivedProduct)
+        {
+            if (obj == null || receivedProduct == null)
+            {
+                console.log('One of these objects is null.');
+                return false;
+            }
+            
+            for (var property in receivedProduct)
+            {
+                if (typeof receivedProduct[property] === 'object' && obj.hasOwnProperty(property))
+                {
+                    //console.log('Looks like we have an object here. ' + JSON.stringify(obj[property]));
+                    //console.log('Versus ', receivedProduct[property]);
+                    console.log('Diving into the object.');
+                    if (!productsEqual(receivedProduct[property], obj[property]))
+                    {
+                        console.log("Did not pass the recursive test.");
+                        return false;
+                    }
+                }
+                else if (JSON.stringify(obj[property]) != JSON.stringify(receivedProduct[property]))
+                {
+                    console.log(obj.name + '\'s ' + property + ' changed from ' + JSON.stringify(obj[property]));
+                    console.log('To ', receivedProduct[property]);
+                    return false;
+                }    
+            }   
+            return true;
+        }
+        
+    };
 };
 
 module.exports = loader;
